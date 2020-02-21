@@ -108,5 +108,9 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
-# VSCode settings
-.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
