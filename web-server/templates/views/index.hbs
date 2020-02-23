@@ -4,13 +4,19 @@
         <title>Weather</title>
         <link rel="icon" href="/web-server/public/content/weather.png">
         <link rel="stylesheet" href="styles/styles.css">
-        <script src="scripts/app.js"></script>
     </head>
     <body>
         <div class="main-content">
             {{>header}}
             <p>Use this site to get your weather.</p>
+            <form>
+                <input type="text" placeholder="Location">
+                <button>Search</button>
+            </form>
+            <p id="location"></p>
+            <p id="forecast"></p>
         </div>
         {{>footer}}
+        <script src="scripts/app.js"></script>
     </body>
 </html>

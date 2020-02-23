@@ -26,8 +26,9 @@ const product = {
 // console.log(rating)
 // console.log(productLabel)
 
-const transaction = (type, {label, stock} = myProduct) => {
+const transaction = (type, { label = "lab", stock = 0 } = {}) => {
     console.log(label + " " + stock)
 }
 
 transaction("order", product)
+transaction("order", undefined)
