@@ -1,23 +1,14 @@
-setTimeout(() => {
-    console.log("The seconds are gone.")
-}, 2000)
-
-const names = ["Mike", "Jen", "Jess"]
-const shortNames = names.filter((name) => {
-    return name.length <= 3
-})
-
-const geocode = (address, callback) => {
+const doWorkCallback = (callback) => {
     setTimeout(() => {
-        const data = {
-            latitude: 0,
-            longitude: 12
-        }
-        callback(data);
-    }, 2000)
+        callback("This is my error", undefined)
+        callback(undefined, [1,4,7])
+    }, 2000);
 }
 
-geocode("Malmö", (data) => {
-    console.log(data)
-})
+doWorkCallback((error, result) => {
+    if (error) {
+        return console.log(error)
+    }
 
+    console.log(result)
+})

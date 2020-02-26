@@ -10,30 +10,27 @@ MongoClient.connect(connectionUrl, { useNewUrlParser: true, useUnifiedTopology:t
     }
 
     const db = client.db(databaseName)
-    db.collection("tasks").findOne({_id: new ObjectID("5e55561e8c7e68071c835435")}, (error, task) => {
-        //console.log(task)
+    //ObjectId("5e55561e8c7e68071c835433")
+    db.collection("tasks").deleteOne({ _id: new ObjectID("5e55561e8c7e68071c835433") })
+    .then((result) => {
+        console.log(result)
     })
-
-    db.collection("tasks").find({completed: false}).toArray().then((tasks, error) => {
-        console.log(tasks)
+    .catch((error) => {
+        console.log(error)
     })
-
-    // db.collection("users").findOne({ _id: new ObjectID("5e5551a66bd8662414583e31") }, (error, user) => {
-    //     if (error) {
-    //         return console.log("Unabel to fetch: " + error)
+    .finally(() => {
+        client.close()
+    })
+    // db.collection("tasks").updateMany({completed: false},
+    // {
+    //     $set: {
+    //         completed: true
     //     }
-    //     console.log(user)
-    // })
-
-    // db.collection("users").find({age:46}).toArray((error, documents) => {
-    //     console.log(documents)
-    // })
-
-    // db.collection("users").find({age:46}).count((error, count) => {
-    //     console.log(count)
-    // })
-    
-    // client.close().then(() => {
-    //     console.log("Connection closed!")
+    // }).then((result) => {
+    //     console.log(result)
+    // }).catch((error) => {
+    //     console.log(error)
+    // }).finally(() => {
+    //     client.close()
     // })
 })
