@@ -5,25 +5,28 @@ const taskRouter = require("./routers/task")
 
 const app = express()
 const port = process.env.PORT || 3000
-//const isMaintenance = false
 
-// Middleware function
-// app.use((req, res, next) => {
-//     if (req.method === "GET") {
-//         res.send("Get requests are disbled.")
-//     } else {
-//         next()
-//     }
-// })
+// testing multer
+const multer = require("multer")
+const upload = multer({
+    dest: "images",
+    limits: {
+        fileSize: 1000000
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(doc|docx)$/)) {
+           return cb(new Error("File must be a word document")) 
+        }
 
-// Middleware maintenance mode.
-// app.use((req, res, next) => {
-//     if (isMaintenance) {
-//         res.status(503).send("The API is currently under maintenance.")
-//     }
+        cb(undefined, true)
+        // cb(new Error("File must be a pdf"))
+        // cb(undefined, true)
+    }
+})
 
-//     next()
-// })
+app.post("/upload", upload.single("upload"), (req, res) => {
+    res.send()
+})
 
 // Configure to parse JSON
 app.use(express.json())
