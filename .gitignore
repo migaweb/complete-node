@@ -2,6 +2,7 @@
 w-app.conf
 avatars/
 images/
+config/
 
 # Logs
 logs
