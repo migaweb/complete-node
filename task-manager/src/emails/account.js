@@ -3,7 +3,6 @@ const sgMail = require("@sendgrid/mail")
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const sendWelcomeEmail = (email, name) => {
-    return
     sgMail.send({
         to: email,
         from: "miga02@migaweb.com",
@@ -13,7 +12,6 @@ const sendWelcomeEmail = (email, name) => {
 }
 
 const sendCancellationEmail = (email, name) => {
-    return
     sgMail.send({
         to: email,
         from: "miga02@migaweb.com",
