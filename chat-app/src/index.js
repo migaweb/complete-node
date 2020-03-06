@@ -3,6 +3,7 @@ const http = require("http")
 const express = require("express")
 const Filter = require("bad-words")
 const socketio = require("socket.io")
+const { generateMessage, generateLocationMessage } = require("./utils/messages")
 
 const app = express()
 const server = http.createServer(app)
@@ -15,8 +16,8 @@ app.use(express.static(publicDirectoryPath))
 
 io.on("connection", (socket) => {
     console.log("New web socket connection")
-    socket.emit("message", "Welcome!") // current
-    socket.broadcast.emit("message", "A new user has joined!") // Everybody except current
+    socket.emit("message", generateMessage("Welcome!")) // current
+    socket.broadcast.emit("message", generateMessage("A new user has joined!")) // Everybody except current
 
     socket.on("sendMessage", (message, callback) => {
         const filter = new Filter()
@@ -24,17 +25,17 @@ io.on("connection", (socket) => {
             return callback("Profanity is not allowed.")
         }
 
-        io.emit("message", message) // Everybody
+        io.emit("message", generateMessage(message)) // Everybody
         callback()
     })
 
     socket.on("sendLocation", (coords, callback) => {
-        io.emit("message", `https://www.google.com/maps?q=${coords.latitude},${coords.longitude}`)
-        callback("Location shared!")
+        io.emit("locationMessage", generateLocationMessage(`https://www.google.com/maps?q=${coords.latitude},${coords.longitude}`))
+        callback()
     })
     
     socket.on("disconnect", () => {
-        io.emit("message", "A user has left.")
+        io.emit("message", generateMessage("A user has left."))
     })
 })
 
